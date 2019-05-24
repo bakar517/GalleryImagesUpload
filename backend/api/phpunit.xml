@@ -1,0 +1,12 @@
+<phpunit bootstrap="autoload.php">
+    <testsuites>
+        <testsuite name="api">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <server name='HTTP_HOST' value='http://localhost' />
+        <server name="SERVER_NAME" value="Wamp"/>
+        <server name="SERVER_PORT" value="80"/>
+    </php>
+</phpunit>
