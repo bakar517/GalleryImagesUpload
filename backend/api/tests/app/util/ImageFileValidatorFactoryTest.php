@@ -16,7 +16,7 @@ class ImageFileValidatorFactoryTest extends PHPUnit_Framework_TestCase
         $wrongFileTag = 'myfile';
 
         $result = ImageFileValidatorFactory::hasRequiredParams($wrongFileTag,$requiredParamsArray,$input);
-        $this->assertFalse($result[0]);
+        $this->assertFalse($result->status());
 
     }
 
@@ -30,7 +30,7 @@ class ImageFileValidatorFactoryTest extends PHPUnit_Framework_TestCase
         $input[$fileTag]['type'] = "image/jpeg";
 
         $result = ImageFileValidatorFactory::hasRequiredParams($fileTag,$requiredParamsArray,$input);
-        $this->assertTrue($result[0]);
+        $this->assertTrue($result->status());
     }
 
     public function testWrongFileTypeValidation()
@@ -42,7 +42,7 @@ class ImageFileValidatorFactoryTest extends PHPUnit_Framework_TestCase
         $input[$fileTag]['type'] = "text/plain";
 
         $result = ImageFileValidatorFactory::hasValidFileFormat($fileTag,$input);
-        $this->assertFalse($result[0]);
+        $this->assertFalse($result->status());
     }
 
     public function testFileTypeValidation()
@@ -54,7 +54,7 @@ class ImageFileValidatorFactoryTest extends PHPUnit_Framework_TestCase
         $input[$fileTag]['type'] = "image/jpeg";
 
         $result = ImageFileValidatorFactory::hasValidFileFormat($fileTag,$input);
-        $this->assertTrue($result[0]);
+        $this->assertTrue($result->status());
     }
 
 }

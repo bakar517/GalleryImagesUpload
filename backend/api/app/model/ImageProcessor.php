@@ -1,9 +1,8 @@
 <?php
 
 
-class Image
+class ImageProcessor
 {
-    const KEY_PATH = "key_path";
 
     private $service;
 
@@ -13,12 +12,14 @@ class Image
 
     private $userId;
 
+    private $db;
+
     /**
-     * Image constructor.
+     * ImageProcessor constructor.
      */
     public function __construct()
     {
-        $this->service = StorageFactory::getService();
+        $this->db = DBFactory::getDbService();
     }
 
 
@@ -90,6 +91,7 @@ class Image
 
     public function moveFile($userId,$file){
         $this->setUserId($userId);
+        $this->service = StorageFactory::getService();
         $result = $this->service->storeFile($this->getUserId(),$file);
         $this->setError($result->hasError());
         if($result->hasError()){
@@ -105,23 +107,45 @@ class Image
     }
 
     private function updateDb(){
-        $db = new AppDB();
-        if($db->hasError()){
+        if($this->db->hasError()){
             return FALSE;
         }
 
         $device_info = "";
 
-        $sql = "insert into images_data(user_id,file_path,uploaded_date,device_info) values(:user_id,:file_path,now(),:device_info)";
+        $sql = "insert into images_data(user_id,public_path,uploaded_date,device_info) values(:user_id,:public_path,now(),:device_info)";
 
-        $params = array(':user_id' => $this->getUserId(),':file_path' => trim($this->getPath()),
+        $params = array(':user_id' => $this->getUserId(),':public_path' => trim($this->getPath()),
             ':device_info' => trim($device_info));
 
-        $record_id = $db->insert($sql,$params);
+        $record_id = $this->db->insert($sql,$params);
 
-        if($db->hasError()){
+        if($this->db->hasError()){
             return FALSE;
         }
         return TRUE;
+    }
+
+    public function fetchUserImages($userId,$lastSeen,$resultCount){
+        $this->setUserId($userId);
+        if($this->db->hasError()){
+            return new ImageResult(FALSE);
+        }
+
+        $sql = "select count(*) as count from images_data where user_id = :user_id and id > :lastSeen";
+
+        $params = array(':user_id' => $this->getUserId(),':lastSeen' => $lastSeen);
+
+        $data = $this->db->fetch($sql,$params);
+
+        $total = $data[0]['count'];
+
+        $sql = "select * from images_data where user_id = :user_id and id > :lastSeen order by id desc limit $resultCount";
+
+        $params = array(':user_id' => $this->getUserId(),':lastSeen' => $lastSeen);
+
+        $records = $this->db->fetch($sql,$params,'ImageItem');
+
+        return new ImageResult(TRUE,$records,($total-count($records)) > 0);
     }
 }

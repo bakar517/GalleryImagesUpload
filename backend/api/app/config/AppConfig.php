@@ -7,3 +7,5 @@ define('DB_HOST','127.0.0.1');
 define('DB_NAME','galleryimagesupload');
 define('DB_USER','root');
 define('DB_PWD','');
+define('DEFAULT_RECORD_COUNT',15);
+define('MAX_RECORD_COUNT',50);

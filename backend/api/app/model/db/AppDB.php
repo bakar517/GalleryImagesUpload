@@ -12,7 +12,7 @@ class AppDB extends DB
      */
     public function __construct($array = null,$connectionTimeout=10)
     {
-        if($array == null || count($array) != 4)
+        if($array == null)
             $this->config = array(DB_HOST,DB_NAME,DB_USER,DB_PWD);
         else
             $this->config = $array;

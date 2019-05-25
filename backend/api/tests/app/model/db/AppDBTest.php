@@ -3,7 +3,7 @@
 
 class AppDBTest extends PHPUnit_Framework_TestCase
 {
-    public function testConnection()
+    public function testDefaultDb()
     {
         $dbConnection = new AppDB();
         $this->assertFalse($dbConnection->hasError());
