@@ -1,9 +1,11 @@
-package com.coding.androidgallery;
+package com.coding.androidgallery.ui.main;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.coding.androidgallery.R;
+
+public class GalleryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
