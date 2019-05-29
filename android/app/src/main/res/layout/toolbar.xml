@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/actionBarSize"
+    android:background="@color/colorPrimary">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorTextWhite"
+            android:id="@+id/title"
+            android:text="@string/app_name"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:maxLines="1"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            />
+
+        <ImageButton
+            android:id="@+id/ic_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_camera_white"
+            android:background="@null"
+            />
+
+        <ImageButton
+            android:id="@+id/ic_pick_from_gallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_photo_gallery"
+            android:layout_toLeftOf="@+id/ic_camera"
+            android:background="@null"
+            />
+
+    </RelativeLayout>
+</android.support.v7.widget.Toolbar>
