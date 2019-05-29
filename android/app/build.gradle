@@ -43,7 +43,12 @@ dependencies {
     testAnnotationProcessor "com.google.dagger:dagger-compiler:2.22.1"
     androidTestAnnotationProcessor"com.google.dagger:dagger-compiler:2.22.1"
 
+
+    // Testing.
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.13.0'
+    testImplementation "org.robolectric:robolectric:4.2"
+
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }

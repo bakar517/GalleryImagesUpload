@@ -1,7 +1,7 @@
 package com.coding.androidgallery.ui.main;
 
 import com.coding.androidgallery.data.GalleryDataManager;
-import com.coding.androidgallery.data.model.ImageUploadResponse;
+import com.coding.androidgallery.data.model.UploadResponse;
 import com.coding.androidgallery.data.model.User;
 import com.coding.androidgallery.ui.base.BasePresenter;
 
@@ -24,9 +24,9 @@ public class GalleryPresenter extends BasePresenter<GalleryContract.GalleryView>
     public void uploadPhoto(String imageFilePath) {
          Disposable disposable = galleryDataManager.uploadPhoto(imageFilePath)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<ImageUploadResponse>() {
+                .subscribe(new Consumer<UploadResponse>() {
                     @Override
-                    public void accept(ImageUploadResponse uploadResponse) throws Exception {
+                    public void accept(UploadResponse uploadResponse) throws Exception {
                         if(!uploadResponse.hasError()){
                             if(getView() != null){
                                 getView().photoUploaded();

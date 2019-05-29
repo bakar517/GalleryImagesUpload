@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by Mudassar Hussain on 5/26/2019.
  */
-public class ImageUploadResponse extends BaseResponse{
+public class UploadResponse extends BaseResponse{
     @SerializedName("public_path")
     @Expose
     private String publicPath;
@@ -30,7 +30,7 @@ public class ImageUploadResponse extends BaseResponse{
             return false;
         }
 
-        ImageUploadResponse other = (ImageUploadResponse)obj;
+        UploadResponse other = (UploadResponse)obj;
         if(getPublicPath() != null && !getPublicPath().equals(other.getPublicPath())){
             return false;
         }

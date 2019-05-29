@@ -1,7 +1,7 @@
 package com.coding.androidgallery.data.remote.api;
 
 
-import com.coding.androidgallery.data.model.ImageUploadResponse;
+import com.coding.androidgallery.data.model.UploadResponse;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -13,5 +13,5 @@ import retrofit2.http.POST;
 public interface GalleryApiService {
 
     @POST("fileupload.php")
-    Observable<ImageUploadResponse> uploadPhoto(@Body RequestBody requestBody);
+    Observable<UploadResponse> uploadPhoto(@Body RequestBody requestBody);
 }

@@ -1,7 +1,7 @@
 package com.coding.androidgallery.data.remote;
 
 import com.coding.androidgallery.data.model.DeviceInfo;
-import com.coding.androidgallery.data.model.ImageUploadResponse;
+import com.coding.androidgallery.data.model.UploadResponse;
 import com.coding.androidgallery.data.remote.api.GalleryApiService;
 
 import java.io.File;
@@ -28,7 +28,7 @@ public class RemoteGalleryRepositoryImp implements RemoteGalleryRepository {
 
 
     @Override
-    public Observable<ImageUploadResponse> uploadPhoto(String userId, String imageFilePath, DeviceInfo deviceInfo) {
+    public Observable<UploadResponse> uploadPhoto(String userId, String imageFilePath, DeviceInfo deviceInfo) {
         File file = new File(imageFilePath);
         RequestBody fileRequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part bodyPart = MultipartBody.Part.createFormData("file", file.getName(), fileRequestBody);

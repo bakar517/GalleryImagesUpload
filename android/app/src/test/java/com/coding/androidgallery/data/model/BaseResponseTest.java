@@ -6,7 +6,7 @@ import org.junit.Test;
 /**
  * Created by Mudassar Hussain on 5/27/2019.
  */
-public class BaseResponseTest1 {
+public class BaseResponseTest {
 
     @Test
     public void testEqualsContract_CompareEqual_ShouldBeSymmetric() {
