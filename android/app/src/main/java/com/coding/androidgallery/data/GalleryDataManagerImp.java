@@ -20,8 +20,9 @@ public class GalleryDataManagerImp implements GalleryDataManager {
     DeviceInfo deviceInfo;
 
     @Inject
-    public GalleryDataManagerImp(RemoteGalleryRepository galleryRepository) {
+    public GalleryDataManagerImp(RemoteGalleryRepository galleryRepository,DeviceInfo deviceInfo) {
         this.galleryRepository = galleryRepository;
+        this.deviceInfo = deviceInfo;
     }
 
     @Override

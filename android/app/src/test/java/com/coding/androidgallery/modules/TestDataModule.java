@@ -6,19 +6,19 @@ import com.coding.androidgallery.data.model.DeviceInfo;
 import com.coding.androidgallery.data.remote.RemoteGalleryRepository;
 import com.coding.androidgallery.data.remote.RemoteGalleryRepositoryImp;
 import com.coding.androidgallery.data.remote.api.GalleryApiService;
-import com.coding.androidgallery.util.android.AndroidHelper;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 
+import static org.mockito.Mockito.mock;
+
 /**
- * Created by Mudassar Hussain on 5/26/2019.
+ * Created by Mudassar Hussain on 5/30/2019.
  */
 @Module
-public class DataModule {
-
+public class TestDataModule {
     @Provides
     @Singleton
     RemoteGalleryRepository remoteGalleryRepository(GalleryApiService service){
@@ -27,12 +27,12 @@ public class DataModule {
 
     @Provides
     @Singleton
-    GalleryDataManager galleryDataManager(RemoteGalleryRepository repository,DeviceInfo deviceInfo){
+    GalleryDataManager galleryDataManager(RemoteGalleryRepository repository, DeviceInfo deviceInfo){
         return new GalleryDataManagerImp(repository,deviceInfo);
     }
 
     @Provides
     DeviceInfo getDeviceInfo(){
-        return AndroidHelper.getDeviceInfo();
+        return mock(DeviceInfo.class);
     }
 }
