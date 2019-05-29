@@ -89,7 +89,7 @@ class ImageProcessor
         return $this->path;
     }
 
-    public function moveFile($userId,$file){
+    public function moveFile($userId,$device_info,$file){
         $this->setUserId($userId);
         $this->service = StorageFactory::getService();
         $result = $this->service->storeFile($this->getUserId(),$file);
@@ -99,19 +99,17 @@ class ImageProcessor
         }else{
             //store path in db
             $this->setPath($result->getPath());
-            if($this->updateDb() != TRUE){
+            if($this->updateDb($device_info) != TRUE){
                 $this->setError(TRUE);
                 $this->setMessage("There is error in connecting with db.");
             }
         }
     }
 
-    private function updateDb(){
+    private function updateDb($device_info){
         if($this->db->hasError()){
             return FALSE;
-        }
-
-        $device_info = "";
+        }        
 
         $sql = "insert into images_data(user_id,public_path,uploaded_date,device_info) values(:user_id,:public_path,now(),:device_info)";
 

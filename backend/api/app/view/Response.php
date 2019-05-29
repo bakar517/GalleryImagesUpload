@@ -31,6 +31,7 @@ class Response
     }
 
     public function json(){
+		header('Content-Type: application/json');
         echo OutputJsonFormatter::encode($this->response);
     }
 }

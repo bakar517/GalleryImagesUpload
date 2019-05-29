@@ -21,10 +21,11 @@ class ImageController
         }
 
         $fileTag = 'file';
+
         $result = ImageFileValidatorFactory::hasValidFileFormat($fileTag);
 
         if(!$result->status()){
-            $response = ResponseFactory::error(array(),$result->getData()." invalid file type $result[1]");
+            $response = ResponseFactory::error(array()," invalid file type ".$result->getData());
             $response->json();
             return;
         }
@@ -46,9 +47,11 @@ class ImageController
 
         $image = new ImageProcessor();
 
-        $userid = 10;
+        $userid = $_REQUEST['userid'];
+		
+		$device_info = $_REQUEST['device_info'];
 
-        $image->moveFile($userid,$_FILES[$fileTag]);
+        $image->moveFile($userid,$device_info,$_FILES[$fileTag]);
 
         if($image->hasError()){
             $response = ResponseFactory::error(array(),$image->getMessage());

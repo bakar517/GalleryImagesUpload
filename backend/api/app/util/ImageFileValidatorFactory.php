@@ -21,8 +21,9 @@ class ImageFileValidatorFactory
         if($input == null){
             $input = $_FILES;
         }
-
-        $content_type = strtolower($input[$fileTag]['type']);
+		
+		$file_info = @getimagesize($_FILES[$fileTag]['tmp_name']); 
+		$content_type = strtolower(image_type_to_mime_type($file_info[2]));     
 
         if (!in_array($content_type, $allowed_types)) {
             return new Result(FALSE,$content_type);
