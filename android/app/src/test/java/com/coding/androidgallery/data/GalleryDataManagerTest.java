@@ -25,12 +25,16 @@ public class GalleryDataManagerTest {
     @Mock
     RemoteGalleryRepository remoteGalleryRepository;
 
+    @Mock
+    DeviceInfo deviceInfo;
+
     GalleryDataManager dataManager;
+
 
     @Before
     public void setup(){
         MockitoAnnotations.initMocks(this);
-        dataManager = new GalleryDataManagerImp(remoteGalleryRepository,mock(DeviceInfo.class));
+        dataManager = new GalleryDataManagerImp(remoteGalleryRepository,deviceInfo);
     }
 
     @Test
@@ -40,7 +44,6 @@ public class GalleryDataManagerTest {
         String imageFilePath = "test.png";
 
         UploadResponse response = mock(UploadResponse.class);
-        DeviceInfo deviceInfo = mock(DeviceInfo.class);
         Mockito.when(remoteGalleryRepository.uploadPhoto(userId,imageFilePath,deviceInfo))
                 .thenReturn(Observable.just(response));
         dataManager.uploadPhoto(imageFilePath);

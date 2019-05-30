@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AndroidGallery</string>
+
+    <string name="message_storage_permission">App doesn\'t have storage permission</string>
+    <string name="message_no_camera">Device doesn\'t have Camera!</string>
+    <string name="message_error">Something went wrong, try again...</string>
+    <string name="message_error_upload">error in uploading photo, try again...</string>
 </resources>
