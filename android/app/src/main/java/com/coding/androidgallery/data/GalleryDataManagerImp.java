@@ -1,6 +1,7 @@
 package com.coding.androidgallery.data;
 
 import com.coding.androidgallery.data.model.DeviceInfo;
+import com.coding.androidgallery.data.model.GalleryResponse;
 import com.coding.androidgallery.data.model.UploadResponse;
 import com.coding.androidgallery.data.model.User;
 import com.coding.androidgallery.data.remote.RemoteGalleryRepository;
@@ -29,6 +30,12 @@ public class GalleryDataManagerImp implements GalleryDataManager {
     public Observable<UploadResponse> uploadPhoto(String imageFilePath) {
         User user = getUserInfo();
         return galleryRepository.uploadPhoto(user.getUserId(),imageFilePath, deviceInfo);
+    }
+
+    @Override
+    public Observable<GalleryResponse> fetchAll(long lastSeen) {
+        User user = getUserInfo();
+        return galleryRepository.fetchAll(user.getUserId(),lastSeen);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.coding.androidgallery.data.remote;
 
 import com.coding.androidgallery.data.model.DeviceInfo;
+import com.coding.androidgallery.data.model.GalleryResponse;
 import com.coding.androidgallery.data.model.UploadResponse;
 import com.coding.androidgallery.data.remote.api.GalleryApiService;
 
@@ -39,5 +40,10 @@ public class RemoteGalleryRepositoryImp implements RemoteGalleryRepository {
                 .addPart(bodyPart)
                 .build();
         return apiService.uploadPhoto(requestBody).subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Observable<GalleryResponse> fetchAll(String userId, long lastSeen) {
+        return apiService.fetchAll(userId,lastSeen).subscribeOn(Schedulers.io());
     }
 }

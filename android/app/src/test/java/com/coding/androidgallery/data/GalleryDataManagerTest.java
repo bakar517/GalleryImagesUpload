@@ -1,6 +1,7 @@
 package com.coding.androidgallery.data;
 
 import com.coding.androidgallery.data.model.DeviceInfo;
+import com.coding.androidgallery.data.model.GalleryResponse;
 import com.coding.androidgallery.data.model.UploadResponse;
 import com.coding.androidgallery.data.model.User;
 import com.coding.androidgallery.data.remote.RemoteGalleryRepository;
@@ -48,5 +49,18 @@ public class GalleryDataManagerTest {
                 .thenReturn(Observable.just(response));
         dataManager.uploadPhoto(imageFilePath);
         verify(remoteGalleryRepository).uploadPhoto(userId,imageFilePath,deviceInfo);
+    }
+
+    @Test
+    public void fetchAllPhotos_WithUserInfo_ShouldGetResponse(){
+        User userInfo = dataManager.getUserInfo();
+        String userId = userInfo.getUserId();
+        long lastSeen = 0;
+
+        GalleryResponse response = mock(GalleryResponse.class);
+        Mockito.when(remoteGalleryRepository.fetchAll(userId,lastSeen))
+                .thenReturn(Observable.just(response));
+        dataManager.fetchAll(lastSeen);
+        verify(remoteGalleryRepository).fetchAll(userId,lastSeen);
     }
 }

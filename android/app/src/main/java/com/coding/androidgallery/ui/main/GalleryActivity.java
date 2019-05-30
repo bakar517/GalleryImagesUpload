@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -13,6 +14,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageButton;
@@ -21,9 +24,15 @@ import android.widget.Toast;
 import com.coding.androidgallery.App;
 import com.coding.androidgallery.R;
 import com.coding.androidgallery.data.GalleryDataManager;
+import com.coding.androidgallery.data.model.GalleryImage;
 import com.coding.androidgallery.ui.base.BaseActivity;
+import com.coding.androidgallery.ui.main.adapter.GalleryPhotoAdapter;
+import com.coding.androidgallery.util.PhotoLoader;
+import com.coding.androidgallery.util.android.AndroidHelper;
 import com.coding.androidgallery.util.android.FileHelper;
 import com.coding.androidgallery.util.android.PhotoHelper;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -42,12 +51,19 @@ public class GalleryActivity extends BaseActivity<GalleryPresenter> implements G
 
     public static final int REQUEST_CODE_TAKE_PICTURE = 13;
 
+    RecyclerView photoList;
+    GalleryPhotoAdapter galleryAdapter;
     ImageButton camera,pick_from_gallery;
 
     boolean hasStoragePermission,stateUploading;
 
+    long lastSeen ;
+
     @Inject
     GalleryDataManager dataManager;
+
+    @Inject
+    PhotoLoader photoLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +80,7 @@ public class GalleryActivity extends BaseActivity<GalleryPresenter> implements G
             requestStoragePermission();
         }
 
+        presenter.fetchPhotos(lastSeen);
     }
 
     private void initViews() {
@@ -71,6 +88,12 @@ public class GalleryActivity extends BaseActivity<GalleryPresenter> implements G
         camera.setOnClickListener(this);
         pick_from_gallery = findViewById(R.id.ic_pick_from_gallery);
         pick_from_gallery.setOnClickListener(this);
+
+        photoList = findViewById(R.id.photoList);
+        galleryAdapter = new GalleryPhotoAdapter(getApplicationContext(), photoLoader);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),AndroidHelper.columnCount(this,getResources().getDimension(R.dimen.photo_list_item_size)));
+        photoList.setLayoutManager(layoutManager);
+        photoList.setAdapter(galleryAdapter);
     }
 
     public boolean hasStoragePermission(Context context) {
@@ -92,15 +115,26 @@ public class GalleryActivity extends BaseActivity<GalleryPresenter> implements G
     }
 
     @Override
-    public void photoUploaded() {
+    public void photoUploaded(GalleryImage image) {
         setStateUploading(false);
         showMessage("Photo uploaded");
+        galleryAdapter.add(image);
     }
 
     @Override
     public void errorUploadingPhoto() {
         setStateUploading(false);
         showMessage(R.string.message_error_upload);
+    }
+
+    @Override
+    public void onNewMedia(List<GalleryImage> list) {
+        galleryAdapter.add(list);
+    }
+
+    @Override
+    public void errorFetchingPhotos() {
+        showMessage(R.string.message_error_fetching_new_images);
     }
 
     @Override
@@ -240,5 +274,21 @@ public class GalleryActivity extends BaseActivity<GalleryPresenter> implements G
 
     public boolean isUploading(){
         return stateUploading;
+    }
+
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        GridLayoutManager gridLayoutManager = (GridLayoutManager) photoList.getLayoutManager();
+        int scrollPosition = gridLayoutManager.findFirstCompletelyVisibleItemPosition();
+        gridLayoutManager.setSpanCount(AndroidHelper.columnCount(this,getResources().getDimension(R.dimen.photo_list_item_size)));
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            photoList.setLayoutManager(gridLayoutManager);
+            photoList.scrollToPosition(scrollPosition);
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+            photoList.setLayoutManager(gridLayoutManager);
+            photoList.scrollToPosition(scrollPosition);
+        }
     }
 }

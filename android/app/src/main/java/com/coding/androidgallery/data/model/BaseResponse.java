@@ -12,6 +12,15 @@ public class BaseResponse {
 
     public static final int ERROR_CODE = -1;
 
+    public BaseResponse(){
+
+    }
+
+    public BaseResponse(int statusCode,String message){
+        setStatusCode(statusCode);
+        setMessage(message);
+    }
+
     @Expose
     private int statusCode;
 

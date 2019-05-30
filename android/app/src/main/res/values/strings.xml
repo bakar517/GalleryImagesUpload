@@ -5,4 +5,6 @@
     <string name="message_no_camera">Device doesn\'t have Camera!</string>
     <string name="message_error">Something went wrong, try again...</string>
     <string name="message_error_upload">error in uploading photo, try again...</string>
+
+    <string name="message_error_fetching_new_images">error in fetching new photos...</string>
 </resources>

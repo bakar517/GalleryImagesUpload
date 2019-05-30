@@ -3,7 +3,9 @@ package com.coding.androidgallery.data.remote;
 import com.coding.androidgallery.DaggerTestAppComponent;
 import com.coding.androidgallery.TestAppComponent;
 import com.coding.androidgallery.data.model.DeviceInfo;
+import com.coding.androidgallery.data.model.GalleryResponse;
 import com.coding.androidgallery.data.model.UploadResponse;
+import com.coding.androidgallery.data.remote.api.MockGalleryApiService;
 import com.coding.androidgallery.modules.MockNetworkModule;
 
 import org.junit.Before;
@@ -19,7 +21,7 @@ import static org.mockito.Mockito.mock;
 /**
  * Created by Mudassar Hussain on 5/27/2019.
  */
-public class RemoteGalleryRepositoryUploadTest {
+public class RemoteGalleryRepositoryFetchAllTest {
 
     @Inject
     RemoteGalleryRepository galleryRepository;
@@ -32,12 +34,11 @@ public class RemoteGalleryRepositoryUploadTest {
 
 
     @Test
-    public void uploadPhoto_WithMockServiceImp_ShouldReturnSuccess(){
+    public void fetchAll_WithMockServiceImp_ShouldReturnSuccess(){
         String userId = "1";
-        String imageFilePath = "test.png";
-        setupMockResponseWithDI(mock(UploadResponse.class));
-        DeviceInfo deviceInfo = mock(DeviceInfo.class);
-        TestObserver<UploadResponse> observer = galleryRepository.uploadPhoto(userId,imageFilePath,deviceInfo).test();
+        long lastSeen = 0;
+        setupMockResponseWithDI(mock(GalleryResponse.class));
+        TestObserver<GalleryResponse> observer = galleryRepository.fetchAll(userId,lastSeen).test();
         observer.awaitTerminalEvent();
         observer.assertNoErrors();
         observer.assertValueCount(1);
@@ -45,18 +46,17 @@ public class RemoteGalleryRepositoryUploadTest {
     }
 
     @Test
-    public void uploadPhoto_WithMockServiceImp_ShouldThrowException(){
+    public void fetchAll_WithMockServiceImp_ShouldThrowException(){
         String userId = "1";
-        String imageFilePath = "test.png";
-        DeviceInfo deviceInfo = mock(DeviceInfo.class);
+        long lastSeen = 0;
         setupMockResponseWithDI(null);
-        TestObserver<UploadResponse> observer = galleryRepository.uploadPhoto(userId,imageFilePath,deviceInfo).test();
+        TestObserver<GalleryResponse> observer = galleryRepository.fetchAll(userId,lastSeen).test();
         observer.awaitTerminalEvent();
         observer.assertError(Exception.class);
         observer.assertValueCount(0);
     }
 
-    private void setupMockResponseWithDI(UploadResponse mock){
+    private void setupMockResponseWithDI(GalleryResponse mock){
         TestAppComponent appComponent = DaggerTestAppComponent.builder().mockNetworkModule(new MockNetworkModule(mock)).build();
         appComponent.inject(this);
     }

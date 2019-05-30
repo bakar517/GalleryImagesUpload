@@ -52,8 +52,7 @@ public class DeviceInfo {
     }
 
     public JsonObject toJson(){
-        String json = this.toString();
-        return  (new JsonParser()).parse(json).getAsJsonObject();
+        return  (new JsonParser()).parse(this.toString()).getAsJsonObject();
     }
 
     @Override

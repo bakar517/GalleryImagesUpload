@@ -4,21 +4,31 @@ import com.coding.androidgallery.util.AppHelper;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Mudassar Hussain on 5/26/2019.
  */
 public class UploadResponse extends BaseResponse{
-    @SerializedName("public_path")
-    @Expose
-    private String publicPath;
 
+    public UploadResponse(){
 
-    public String getPublicPath() {
-        return publicPath;
     }
 
-    public void setPublicPath(String publicPath) {
-        this.publicPath = publicPath;
+    public UploadResponse(int statusCode,String message){
+        super(statusCode,message);
+    }
+
+    @Expose
+    private GalleryImage item;
+
+    public GalleryImage getItem() {
+        return item;
+    }
+
+    public void setItem(GalleryImage item) {
+        this.item = item;
     }
 
     @Override
@@ -31,7 +41,7 @@ public class UploadResponse extends BaseResponse{
         }
 
         UploadResponse other = (UploadResponse)obj;
-        if(getPublicPath() != null && !getPublicPath().equals(other.getPublicPath())){
+        if(item != null && !item.equals(other.getItem())){
             return false;
         }
         return true;
@@ -41,7 +51,9 @@ public class UploadResponse extends BaseResponse{
     public int hashCode() {
         int prime = 41;
         int result = super.hashCode();
-        result = prime * result + AppHelper.getHashCode(getPublicPath());
+        if(item != null) {
+            result = prime * result + item.hashCode();
+        }
         return result;
     }
 }

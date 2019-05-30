@@ -1,6 +1,9 @@
 package com.coding.androidgallery.ui.main;
 
+import com.coding.androidgallery.data.model.GalleryImage;
 import com.coding.androidgallery.data.model.User;
+
+import java.util.List;
 
 /**
  * Created by Mudassar Hussain on 5/26/2019.
@@ -13,8 +16,10 @@ public class GalleryContract {
      */
 
     interface GalleryView{
-        void photoUploaded();
+        void photoUploaded(GalleryImage image);
         void errorUploadingPhoto();
+        void onNewMedia(List<GalleryImage> list);
+        void errorFetchingPhotos();
     }
 
     /**
@@ -24,5 +29,6 @@ public class GalleryContract {
     interface Presenter{
         void uploadPhoto(String imageFilePath);
         User getUserInfo();
+        void fetchPhotos(long lastSeen);
     }
 }

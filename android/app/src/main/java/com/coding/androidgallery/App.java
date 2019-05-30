@@ -20,9 +20,15 @@ public class App extends Application {
     }
 
     public void setupAppComponent(){
-        if(appComponent == null){
-            appComponent = DaggerAppComponent.builder().build();
-        }
+        appComponent = DaggerAppComponent.builder().build();
+    }
+
+    public void replaceAppComponent(AppComponent appComponent){
+        this.appComponent = appComponent;
+    }
+
+    public void clearAppComponent(){
+        setupAppComponent();
     }
 
     public static App getInstance(){

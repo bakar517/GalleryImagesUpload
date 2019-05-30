@@ -9,11 +9,15 @@ public class AppHelper {
         int result = 0;
         if(arg == null) return result;
         if(arg instanceof Integer){
-            result = new Integer((int)arg).hashCode();
+            result = ((Integer)arg).hashCode();
         }else if(arg instanceof Long){
-            result = new Long((long)arg).hashCode();
+            result = ((Long)arg).hashCode();
         }else if(arg instanceof Double){
-            result = new Double((double)arg).hashCode();
+            result = ((Double)arg).hashCode();
+        }else if(arg instanceof Boolean){
+            result = ((Boolean)arg).hashCode();
+        }else if(arg instanceof String){
+            result = ((String)arg).hashCode();
         }else{
             result  = arg.hashCode();
         }

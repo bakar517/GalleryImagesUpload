@@ -1,5 +1,6 @@
 package com.coding.androidgallery.data;
 
+import com.coding.androidgallery.data.model.GalleryResponse;
 import com.coding.androidgallery.data.model.UploadResponse;
 import com.coding.androidgallery.data.model.User;
 
@@ -11,6 +12,8 @@ import io.reactivex.Observable;
  */
 public interface GalleryDataManager {
     Observable<UploadResponse> uploadPhoto(String imageFilePath);
+
+    Observable<GalleryResponse> fetchAll(long lastSeen);
 
     User getUserInfo();
 

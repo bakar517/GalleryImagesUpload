@@ -12,8 +12,6 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-import static org.mockito.Mockito.mock;
-
 /**
  * Created by Mudassar Hussain on 5/30/2019.
  */
@@ -33,6 +31,6 @@ public class TestDataModule {
 
     @Provides
     DeviceInfo getDeviceInfo(){
-        return mock(DeviceInfo.class);
+        return new DeviceInfo();
     }
 }
