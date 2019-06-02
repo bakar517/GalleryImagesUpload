@@ -12,7 +12,11 @@ class ImageProcessor
 
     private $userId;
 
+    private $path;
+
     private $db;
+
+    private $data;
 
     /**
      * ImageProcessor constructor.
@@ -55,8 +59,6 @@ class ImageProcessor
         $this->path = $path;
     }
 
-    private $path;
-
     /**
      * @return mixed
      */
@@ -89,6 +91,23 @@ class ImageProcessor
         return $this->path;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param mixed $data
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+    }
+
+
     public function moveFile($userId,$device_info,$file){
         $this->setUserId($userId);
         $this->service = StorageFactory::getService();
@@ -99,6 +118,7 @@ class ImageProcessor
         }else{
             //store path in db
             $this->setPath($result->getPath());
+
             if($this->updateDb($device_info) != TRUE){
                 $this->setError(TRUE);
                 $this->setMessage("There is error in connecting with db.");
@@ -118,9 +138,18 @@ class ImageProcessor
 
         $record_id = $this->db->insert($sql,$params);
 
+        $sql = "select * from images_data where id = :id";
+
+        $params = array(':id' => $record_id);
+
+        $record = $this->db->fetch($sql,$params,'ImageItem');
+
+        $this->setData($record[0]);
+
         if($this->db->hasError()){
             return FALSE;
         }
+
         return TRUE;
     }
 
@@ -146,4 +175,5 @@ class ImageProcessor
 
         return new ImageResult(TRUE,$records,($total-count($records)) > 0);
     }
+
 }

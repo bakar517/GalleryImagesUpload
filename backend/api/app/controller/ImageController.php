@@ -3,7 +3,7 @@
 
 class ImageController
 {
-    const KEY_PATH = "public_path";
+    const KEY_ITEM = "item";
 
     const KEY_IMAGE_LIST = "list";
 
@@ -57,7 +57,7 @@ class ImageController
             $response = ResponseFactory::error(array(),$image->getMessage());
         }else{
             $response = ResponseFactory::success(array(),"Uploaded successfully");
-            $response->put(ImageController::KEY_PATH,$image->getPath());
+            $response->put(ImageController::KEY_ITEM,$image->getData());
         }
         $response->json();
 
