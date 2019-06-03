@@ -1,7 +1,5 @@
 # App Backend
 
-Deploying backend.
-
 This application was created using PHP/mysql. Testing was done on following server
 
 Local Machine
@@ -16,6 +14,10 @@ PHP Version 7.2.18
 Mysql version 10.2.23
 PHP extension: mysqli
 Server: localhost (localhost via TCP/IP)
+
+
+# Deploying backend
+
 
 Follow these steps to deploy it on any PHP/mysql server. Minium supported PHP version is 5.4
 
@@ -49,7 +51,8 @@ define('DEFAULT_RECORD_COUNT',15);
 
 I could have created a test.php script to verify if everything is working fine like apis and db but could not done because of time.
 
-Tests
+
+# Unit/Integation Tests
 
 This application is built using PHP Storm. Automated tests can be found under "api/tests". 
 
