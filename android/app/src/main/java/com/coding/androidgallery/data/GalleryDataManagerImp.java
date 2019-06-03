@@ -1,5 +1,6 @@
 package com.coding.androidgallery.data;
 
+import com.coding.androidgallery.AppConfig;
 import com.coding.androidgallery.data.model.DeviceInfo;
 import com.coding.androidgallery.data.model.GalleryResponse;
 import com.coding.androidgallery.data.model.UploadResponse;
@@ -41,6 +42,6 @@ public class GalleryDataManagerImp implements GalleryDataManager {
     @Override
     public User getUserInfo(){
         //Load LoggedIn user info from persistent storage. For time being I hardcoded it.
-        return User.createUser("10");
+        return User.createUser(AppConfig.CURRENT_LOGGED_IN_USER_ID);
     }
 }
