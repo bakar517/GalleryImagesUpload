@@ -1,6 +1,6 @@
 <?php
 define('DATA_DIR_NAME','backend_data');
-define('ROOT_DATA_DIR',dirname(realpath(__DIR__ . '/../../../../')).'\backend_data\\');
+define('ROOT_DATA_DIR',dirname(realpath(__DIR__ . '/../../../../')).'/backend_data/');
 define('ERROR_DIR_CREATION','Unable to create directory!');
 define('ERROR_FILE_COPY','Unable to copy file!');
 define('DB_HOST','127.0.0.1');

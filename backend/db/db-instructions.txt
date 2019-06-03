@@ -1,0 +1,8 @@
+-create database "galleryimagesupload" in mysql db and import "db/galleryimagesupload.sql" file.
+-open api\app\config\AppConfig.php config file and update db configurations parameters
+
+define('DB_HOST','127.0.0.1');//Update DB_HOST name in case its hosted on different VM/Machine.
+define('DB_NAME','galleryimagesupload');//DB name in case its different
+define('DB_USER','root');//DB username
+define('DB_PWD',''); //DB password
+
