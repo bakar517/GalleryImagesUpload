@@ -1,11 +1,10 @@
 # Andriod App
-Andriod App
 
 Android App is tested on Huaweie mate 9 and Huaweie mate 10.
 
 The min supported version is lollipop (level 21).
 
-#App Configurations
+# App Configurations
 
 App is Tested on Local network as well as on an online server running app backend.
 
@@ -20,7 +19,7 @@ by updating CURRENT_ENV to ENV_LOCAL in order to test on local.
 You can also change User by providing UNIQUE_USER_ID by setting "CURRENT_LOGGED_IN_USER_ID" to test app for different users as I didn't implemented login scenario.
 
 
-App architecture
+# App architecture
 
 Application is built on MVP pattern. I have used Dagger for depdency injections so I can provide dedepdency for testing. Retrofit with rxandroid for Http communication.
 Picasso is used for image loading but we can interface any image library with changing app architecture as App is using inteface for Image Loading.
@@ -29,14 +28,18 @@ Robolectric and espresso is used for instrumented unit/integration testing of an
 I have ovveride equals and hashcode methods of Model classes because they are being used for Assertion (object comparision).
 
 
-
-Src directory structure
+# Src directory structure
 
 main: Contains Application source code
+
 sharedTest: Contains test classes that are shared among both test and androidTest
+
 test: Contains Local unit and integration tests.
+
 androidTest: Contains instrumented tests for unit and end to end.
 
+
+# Libraries used
 
 App is using following main libraries.
 -rxandroid
