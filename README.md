@@ -1,3 +1,3 @@
 # GalleryImagesUpload
 GalleryImagesUpload
-A simple Gallery Image App with backend developed in PHP/mysql.
+A simple Gallery android App with backend developed in PHP/mysql.
